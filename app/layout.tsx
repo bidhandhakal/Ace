@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your App",
+  title: "YO-web",
   description: "A modern web application",
 };
 

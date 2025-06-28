@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LogoutButton } from "./logout-action";
 
 export const metadata: Metadata = {
-    title: "Dashboard | Your App",
+    title: "Dashboard | YO-web",
     description: "Your dashboard",
 };
 

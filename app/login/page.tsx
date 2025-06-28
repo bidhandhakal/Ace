@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { LoginForm } from "../components/LoginForm";
 
 export const metadata: Metadata = {
-    title: "Login | Your App",
+    title: "Login | YO-web",
     description: "Login to your account",
 };
 
