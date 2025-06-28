@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { logoutUser } from '@/lib/auth';
 
-export function POST() {
+export async function POST() {
     try {
-        const result = logoutUser();
+        await logoutUser();
 
         return NextResponse.json({ success: true });
     } catch (error) {
