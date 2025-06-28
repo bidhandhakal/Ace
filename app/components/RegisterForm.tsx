@@ -97,7 +97,7 @@ export function RegisterForm() {
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="John Doe" {...field} />
+                                        <Input placeholder="Bidhan Dada" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -110,7 +110,7 @@ export function RegisterForm() {
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="you@example.com" {...field} />
+                                        <Input placeholder="yo@yoweb.com" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
