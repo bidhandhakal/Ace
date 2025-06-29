@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,6 +30,7 @@ const formSchema = z.object({
 
 export function LoginForm() {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -59,17 +60,23 @@ export function LoginForm() {
                 throw new Error(data.message || "Login failed");
             }
 
-            // Use router.push for client-side navigation without reload
-            router.push("/dashboard");
+            // Use startTransition for a smoother navigation experience
+            startTransition(() => {
+                // Prefetch the dashboard route
+                router.prefetch("/dashboard");
+                // Navigate to dashboard
+                router.push("/dashboard");
+                // Refresh the router cache for the dashboard
+                router.refresh();
+            });
         } catch (err) {
             setError(err instanceof Error ? err.message : "An error occurred during login");
-        } finally {
             setIsLoading(false);
         }
     }
 
     return (
-        <Card className="auth-card w-full max-w-md mx-auto">
+        <Card className="auth-card w-full max-w-md mx-auto shadow-lg transition-all duration-300 hover:shadow-xl">
             <CardHeader>
                 <CardTitle className="text-2xl font-bold text-primary">Login</CardTitle>
                 <CardDescription>Enter your credentials to access your account</CardDescription>
@@ -84,7 +91,12 @@ export function LoginForm() {
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="yo@yoweb.com" {...field} />
+                                        <Input
+                                            placeholder="yo@yoweb.com"
+                                            {...field}
+                                            className="transition-all duration-200 focus:ring-2"
+                                            disabled={isLoading || isPending}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -97,15 +109,34 @@ export function LoginForm() {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="******" {...field} />
+                                        <Input
+                                            type="password"
+                                            placeholder="******"
+                                            {...field}
+                                            className="transition-all duration-200 focus:ring-2"
+                                            disabled={isLoading || isPending}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                         {error && <p className="text-sm text-red-500">{error}</p>}
-                        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
-                            {isLoading ? "Logging in..." : "Login"}
+                        <Button
+                            type="submit"
+                            className="w-full bg-primary hover:bg-primary/90 transition-all duration-200"
+                            disabled={isLoading || isPending}
+                        >
+                            {isLoading || isPending ?
+                                <span className="flex items-center gap-2">
+                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Logging in...
+                                </span>
+                                : "Login"
+                            }
                         </Button>
                     </form>
                 </Form>
@@ -113,7 +144,7 @@ export function LoginForm() {
             <CardFooter className="flex justify-center">
                 <p className="text-sm text-muted-foreground">
                     Don&apos;t have an account?{" "}
-                    <Link href="/register" className="text-primary hover:underline">
+                    <Link href="/register" className="text-primary hover:underline transition-all duration-200">
                         Register
                     </Link>
                 </p>

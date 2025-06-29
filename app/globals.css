@@ -132,3 +132,43 @@
 .auth-card {
   @apply bg-card border-primary/20 shadow-lg;
 }
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .auth-card {
+    @apply px-4 py-6;
+  }
+}
+
+/* Page transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Form element focus states */
+input:focus,
+button:focus {
+  @apply ring-2 ring-primary/50 transition-all duration-200;
+}
+
+/* Improve button hover states */
+button {
+  @apply transition-all duration-200;
+}
+
+/* Improve loading states */
+.loading-spinner {
+  @apply animate-spin;
+}

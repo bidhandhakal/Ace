@@ -17,13 +17,13 @@ export default async function DashboardPage() {
     }
 
     return (
-        <div className="page-container">
-            <div className="w-full max-w-3xl">
-                <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+        <div className="page-container px-4 py-8 md:py-12 page-enter">
+            <div className="w-full max-w-3xl mx-auto">
+                <h1 className="text-3xl font-bold mb-6 text-center md:text-left">Dashboard</h1>
 
-                <Card>
+                <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
                     <CardHeader>
-                        <CardTitle>Welcome, {user.name || user.email}!</CardTitle>
+                        <CardTitle className="text-xl md:text-2xl">Welcome, {user.name || user.email}!</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <p className="mb-4">You are now logged in with {user.email}.</p>

@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
     return (
-        <div className="page-container">
-            <div className="w-full max-w-md">
+        <div className="page-container px-4 py-8 md:py-12">
+            <div className="w-full max-w-md mx-auto">
                 <LoginForm />
             </div>
         </div>
